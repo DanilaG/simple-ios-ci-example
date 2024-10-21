@@ -1,0 +1,29 @@
+# название workflow
+name: simple iOS CI example
+
+# тригеры для запуска workflow
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# описание действий workflow
+jobs:
+
+  # название действия (может быть любым)
+  build:
+    runs-on: macos-latest
+
+    steps: 
+      # предоставляет доступ к репозиторию
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_16.app
+
+      - name: Build
+        run: xcodebuild clean build -project SimpleIosCi/SimpleIosCi.xcodeproj -scheme SimpleIosCi -destination 'platform=iOS Simulator,name=iPhone 16'
+
+      - name: Run tests
+        run: xcodebuild test -project SimpleIosCi/SimpleIosCi.xcodeproj -scheme SimpleIosCi -destination 'platform=iOS Simulator,name=iPhone 16'
