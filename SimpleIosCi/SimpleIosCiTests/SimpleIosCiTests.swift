@@ -13,4 +13,8 @@ final class SimpleIosCiTests: XCTestCase {
     func testExample() throws {
         XCTAssertEqual(1, 1)
     }
+    
+    func testWithFailure() throws {
+        XCTAssertEqual(1, 2)
+    }
 }
